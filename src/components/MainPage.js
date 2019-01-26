@@ -17,8 +17,7 @@ const styles = theme => ({
 class MainPage extends Component {
   state = {
     result: [],
-    valeur: "",
-    images: []
+    valeur: ""
   };
 
   handleSubmit = e => {
@@ -41,15 +40,11 @@ class MainPage extends Component {
     });
   };
 
-  render() {
-    this.state.result.map(e => {
-      if (e.show.image.medium === null) {
-        return "pas d'url disponible";
-      } else {
-        return e.show.image.medium;
-      }
-    });
+  handleClick = () => {
+    alert("coucou");
+  };
 
+  render() {
     const { classes } = this.props;
     return (
       <div>
@@ -69,14 +64,38 @@ class MainPage extends Component {
           </form>
         </div>
         <div>
-          {this.state.result.map((e, i) => (
-            <div key={i}>
-              <p>{e.show.name}</p>
-              <img src={e.show.image.medium} alt="jacket film" />
-            </div>
-          ))}
+          <div className="affichageImage">
+            {this.state.result.map((e, i) => {
+              if (e.show.image != null) {
+                return (
+                  <div className="card">
+                    <h2 key={i}>{e.show.name}</h2>
+                    <img
+                      className="spaceImage"
+                      key={i}
+                      src={e.show.image.medium}
+                      alt="jacket film"
+                    />
+                  </div>
+                );
+              } else {
+                return (
+                  <div className="card">
+                    <h2 key={i}>{e.show.name}</h2>
+                    <img
+                      className="spaceImage"
+                      width="350px"
+                      height="492px"
+                      src="https://c-lj.gnst.jp/public/img/common/noimage.jpg?20181001050045 "
+                      alt=" indisponible"
+                    />
+                  </div>
+                );
+              }
+            })}
+          </div>
+          <Footer />
         </div>
-        <Footer />
       </div>
     );
   }
