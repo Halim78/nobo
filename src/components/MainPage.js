@@ -1,17 +1,24 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Header from "./Header";
+import Footer from "./Footer";
+import { Button } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import "../css/Main.css";
+import "../css/Header.css";
+import "../css/Footer.css";
+
+const styles = theme => ({
+  button: {
+    marginLeft: "20px"
+  }
+});
 
 class MainPage extends Component {
   state = {
     result: [],
     valeur: "",
     images: []
-  };
-
-  handleChange = e => {
-    this.setState({
-      valeur: e.target.value
-    });
   };
 
   handleSubmit = e => {
@@ -28,53 +35,51 @@ class MainPage extends Component {
     );
   };
 
-  //   url() {
-  //     this.state.result.map(e => {
-  //       if (e.show.image === null) {
-  //         return "pas d'url disponible";
-  //       } else {
-  //         return this.state.images.push(e.show.image.medium);
-  //       }
-  //     });
-  //   }
+  handleChange = e => {
+    this.setState({
+      valeur: e.target.value
+    });
+  };
 
   render() {
     this.state.result.map(e => {
-      if (e.show.image === null) {
+      if (e.show.image.medium === null) {
         return "pas d'url disponible";
       } else {
-        return this.state.images.push(e.show.image.medium);
+        return e.show.image.medium;
       }
     });
-    // this.url();
-    // console.log(this.state.images);
 
+    const { classes } = this.props;
     return (
       <div>
-        <div>
+        <Header />
+        <div className="bodye">
           <form onSubmit={this.handleSubmit}>
-            <label>Taper votre recherche</label>
+            <label>Taper votre recherche </label>
             <input
+              placeholder="titre ..."
               type="text"
               onChange={this.handleChange}
               value={this.state.valeur}
             />
-            <button type="submit">GO</button>
+            <Button className={classes.button} color="secondary" type="submit">
+              GO
+            </Button>
           </form>
         </div>
         <div>
           {this.state.result.map((e, i) => (
-            <p key={i}>{e.show.name}</p>
-          ))}
-          {/* </div>
-        <div> */}
-          {this.state.images.map((e, i) => (
-            <img key={i} src={e} alt="jacket film" />
+            <div key={i}>
+              <p>{e.show.name}</p>
+              <img src={e.show.image.medium} alt="jacket film" />
+            </div>
           ))}
         </div>
+        <Footer />
       </div>
     );
   }
 }
 
-export default MainPage;
+export default withStyles(styles)(MainPage);
