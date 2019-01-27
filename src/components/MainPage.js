@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
+import { Redirect, Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import "../css/Main.css";
@@ -10,12 +11,14 @@ import "../css/Footer.css";
 
 const styles = theme => ({
   button: {
-    marginLeft: "20px"
+    marginLeft: "20px",
+    marginBottom: "10px"
   }
 });
 
 class MainPage extends Component {
   state = {
+    // redirectToReferrer: false,
     result: [],
     valeur: ""
   };
@@ -40,11 +43,17 @@ class MainPage extends Component {
     });
   };
 
-  handleClick = () => {
-    alert("coucou");
-  };
+  // handleClick = () => {
+  //   this.setState({
+  //     redirectToReferrer: true
+  //   });
+  // };
 
   render() {
+    const { redirectToReferrer } = this.state;
+    if (redirectToReferrer === true) {
+      return <Redirect to="/details" />;
+    }
     const { classes } = this.props;
     return (
       <div>
@@ -68,20 +77,22 @@ class MainPage extends Component {
             {this.state.result.map((e, i) => {
               if (e.show.image != null) {
                 return (
-                  <div className="card">
-                    <h2 key={i}>{e.show.name}</h2>
-                    <img
-                      className="spaceImage"
-                      key={i}
-                      src={e.show.image.medium}
-                      alt="jacket film"
-                    />
-                  </div>
+                  <Link to={`/details/${e.show.name}`}>
+                    <div key={i} className="card">
+                      <h2>{e.show.name}</h2>
+                      <img
+                        className="spaceImage"
+                        key={i}
+                        src={e.show.image.medium}
+                        alt="jacket film"
+                      />
+                    </div>
+                  </Link>
                 );
               } else {
                 return (
-                  <div className="card">
-                    <h2 key={i}>{e.show.name}</h2>
+                  <div key={i} className="card">
+                    <h2>{e.show.name}</h2>
                     <img
                       className="spaceImage"
                       width="350px"
@@ -94,7 +105,7 @@ class MainPage extends Component {
               }
             })}
           </div>
-          <Footer />
+          <Footer name="halim" />
         </div>
       </div>
     );

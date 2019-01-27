@@ -1,10 +1,11 @@
 input {
   height: 25px;
+  font-size: 1.5em;
   width: 15%;
   margin-left: 15px;
   margin-top: 10%;
   border-radius: 5px;
-  border: 2px solid black;
+  border: 1px solid grey;
 }
 
 label {
@@ -14,7 +15,7 @@ label {
 }
 
 ::placeholder {
-  font-size: 15px;
+  font-size: 1em;
 }
 
 .affichageImage {
@@ -45,4 +46,8 @@ h2 {
   border: 2px solid grey;
   margin-right: 10px;
   margin-top: 10px;
+}
+
+.card:hover {
+  cursor: pointer;
 }
