@@ -29,9 +29,6 @@ class DetailsPage extends React.Component {
   };
 
   render() {
-    //  if (this.state.newResult.image === null) {
-    //   return "https://c-lj.gnst.jp/public/img/common/noimage.jpg?20181001050045 ";
-    // }
     return (
       <div>
         <div className="previous">
@@ -40,10 +37,10 @@ class DetailsPage extends React.Component {
           </Button>
         </div>
         <Header />
-        <div>
-          <h3>{this.state.newResult.name}</h3>
+        <div className="detailsFilm">
+          <h1>{this.state.newResult.name}</h1>
           <img src={this.state.viewImage} alt="jacket du film" />
-          <h4>{this.state.newResult.summary}</h4>
+          <h3>{this.state.newResult.summary}</h3>
         </div>
         <div className="bodye2">
           <Footer />
